@@ -1,0 +1,115 @@
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 list">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>
+            <span class="titl-page">
+              <i class="fa fa-envelope-o"></i>
+              پیام جدید
+            </span>
+          </h2>
+          <span class="opreation-icon pull-left" data-toggle="tooltip" title="رفتن به پیام ها">
+            <a class="btn btn-default"routerLink="/messaging"><i class="fa  fa-arrow-right"></i></a>
+
+          </span>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <form [formGroup]="messageform" >
+            <div class="row">
+              <div class="col-md-1 col-lg-offset-1">
+                موضوع <span class="required">*</span>
+              </div>
+              <div class="col-md-10">
+                <select class="composebox {{messageform.get('subjectId').value=='0'?'first form-control' : 'ng-valid form-control'}}" formControlName="subjectId">
+                  <option value="0" hidden>یک موضوع را انتخاب کنید</option>
+                  <option  *ngFor="let s of subjects" [value]="s.id">
+                    {{ s.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 col-lg-offset-1">
+                ارسال به <span class="required">*</span>
+              </div>
+              <div class="col-md-10">
+                <div class="col-md-9 col-sm-12 col-xs-12 upclass">
+                  <button class="btn btn-sm  btn-default" (click)="selectUser=true">
+
+                    <i class="fa fa-user-plus pull-right upicon"></i>
+                    انتخاب گیرنده
+                  </button>
+                  <span *ngFor="let user of selecedUsers">
+                    <label class="uplable my-lable">
+
+                      <i class="fa fa-close  upclose" (click)="Removeuser(user.userId)"></i>    {{user.personName}}
+
+                    </label>
+
+                  </span>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+              <app-select-user (users)="GetSelecedUsers($event)" (selecteduser)="IsSelected($event)" *ngIf="selectUser"> </app-select-user>
+            </div>
+            <div class="row">
+              <div class="col-md-1 col-lg-offset-1">
+                <span>
+                  پیوست
+                </span>
+              </div>
+              <div class="col-md-10 ">
+
+                <div class="col-md-9 col-sm-12 col-xs-12 upclass">
+                  <label for="upload">
+                    <a class="btn btn-sm btn-default">
+                      <i class="fa fa-paperclip upicon"></i>
+                      انتخاب فایل
+                    </a>
+                    <input id="upload" class="form-control  float-right displaynone" type="file" multiple (change)="SelectFiles($event)" #fileInput />
+                  </label>
+                  <span *ngFor="let file of uploadFiles">
+                    <label class="uplable my-lable">
+
+
+                      <i class="fa fa-close  upclose" (click)="Remove(file.name)"></i>  {{file.name}}
+
+                    </label>
+                  </span>
+
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 col-lg-offset-1">
+                متن <span class="required">*</span>
+              </div>
+              <div class="col-md-10">
+                <ckeditor [editor]="Editor" style="display:inline-block" class="composebody" formControlName="body" name="description1" (ready)="onReady($event)" [config]="{language:'fa'}"></ckeditor>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-10 col-lg-offset-2">
+                <button class="btn btn-success" (click)="Send()" [disabled]="!messageform.valid || selecedUsers.length == 0">
+                  <i class="fa fa-send"></i>
+                  ارسال
+                </button>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

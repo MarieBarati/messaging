@@ -1,0 +1,473 @@
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 list">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>
+            <span class="titl-page">
+              <i class="fa fa-envelope-o"></i>
+              پیام ها
+            </span>
+            <button class="btn btn-xs btn-success" routerLink="/messaging/compose">
+              <i class="fa  fa-plus"></i>
+              پیام جدید
+            </button>
+          </h2>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <div class="col-md-12">
+            <div class="searchbox">
+              <div class="searchtitle">
+                <div class="row">
+                  <div class="col-md-2 col-xs-12 col-sx-12 ">
+                    <i class="fa fa-search"></i>&nbsp;جستجو
+                  </div>
+                  <div class="col-md-1 col-xs-12 col-sx-12 ">
+                    <a class="add fa fa-plus-square my-minus2" (click)="search=true" *ngIf="search==false"></a>
+                    <a class="del fa fa-minus-square" (click)="search=false" *ngIf="search==true"></a>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="search==true">
+                <form [formGroup]="messageSearchForm">
+                  <div class="row" style="margin-bottom:10px;margin-top:10px">
+                    <div class="col-md-1 col-xs-12 col-sx-12">
+                      متن پیام
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sx-12 ">
+                      <input class="cartable-control" formControlName="body" dir="rtl" />
+                    </div>
+                    <div class="col-md-1 col-xs-12 col-sx-12">
+                      موضوع
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sx-12 ">
+                      <select class="cartable-control" formControlName="subjectId">
+                        <option value="0">یک مورد را انتخاب کنید</option>
+                        <option *ngFor="let s of subjects" value="{{s.id}}">{{s.name}}</option>
+
+
+                      </select>
+                    </div>
+                    <div class="col-md-2 col-xs-12 col-sx-12" style="margin-top:5px">
+                      <label class="checkboxgreen">
+                        <input type="checkbox" formControlName="unRead" checked="checked" class="">
+                        <span class="checkmarkgreen"></span>
+                      </label>
+                      <span>
+                        فقط خوانده نشده ها
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <div class="row" style="margin-bottom:10px">
+                    <div class="col-md-6 col-xs-12 col-sx-12 ">
+                      <label class="warning-search" *ngIf="messageSearchForm.errors">{{ messageSearchForm.errors?.dates | json }}</label>
+                    </div>
+
+                  </div>
+                  <div class="row" style="margin-bottom:10px;margin-top:10px">
+                    <div class="col-md-1 col-xs-12 col-sx-12 ">
+                      <i class="fa fa-calendar">
+                      </i>
+                      تاریخ
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sx-12">
+                      <div class="col-md-6 col-xs-12 col-sx-12 mds-container">
+                        <mds-angular-persian-datetimepicker readonly #fromDate_mdsDateTimePicker
+                                                            [placeHolder]="'از'"
+                                                            [inLine]="false"
+                                                            [timePicker]="false"
+                                                            buttonIcon=""
+                                                            [isPersian]="true"
+                                                            textBoxType="2">
+                        </mds-angular-persian-datetimepicker>
+                      </div>
+                      <div class="col-md-6 col-xs-12 col-sx-12 mds-container">
+                        <mds-angular-persian-datetimepicker readonly #toDate_mdsDateTimePicker
+                                                            [placeHolder]="'تا'"
+                                                            [inLine]="false"
+                                                            [timePicker]="false"
+                                                            buttonIcon=""
+                                                            [isPersian]="true"
+                                                            textBoxType="2">
+                        </mds-angular-persian-datetimepicker>
+                      </div>
+
+                    </div>
+
+                    <div class="col-md-1 col-xs-12 col-sx-12">
+                      نام مخاطب
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sx-12 ">
+                      <input class="cartable-control" formControlName="ReceiverOrSenderName" />
+
+                    </div>
+
+                    <div class="col-md-1 col-xs-12 col-sx-12">
+                      <label class="container-field">
+                        گیرنده
+                        <input type="radio" formControlName="MessagePersonType" value="2">
+                        <span class="checkmark "></span>
+                      </label>
+                    </div>
+                    <div class="col-md-1 col-xs-12 col-sx-12 ">
+                      <label class="container-field">
+                        فرستنده
+                        <input type="radio" formControlName="MessagePersonType" value="1">
+                        <span class="checkmark "></span>
+                      </label>
+
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 left">
+                      <button type="submit" [disabled]="!messageSearchForm.valid" class="btn btn-default" (click)="GetMessages()">
+                        <span>
+                          <i class="fa fa-search"></i><span class="mr-1">جستجو</span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12 col-sx-12 pagesize">
+            <select id="pageSize" (change)="GetMessages()" class="search-item-count" #pageSize>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+
+            </select>
+            <span class="count-item">تعداد&nbsp;</span>
+          </div>
+          <div class="col-md-8 col-sm-12" style="height:36px">
+            <label *ngIf="isSelected" class="checkboxgreen ">
+              <input type="checkbox" [(ngModel)]="selectAll" (change)="SelectAll(selectAll)">
+              <span class="checkmarkgreen"></span>
+            </label>
+            <span *ngIf="isSelected && messageSearchForm.get('MessageBoxType').value=='3'"
+                  (click)="UnArchive()" data-toggle="tooltip" title="فعال شدن"
+                  class="opreation-icon"><i class="fa fa-envelope-open read"></i></span>
+            <span *ngIf="isSelected && (messageSearchForm.get('MessageBoxType').value=='1' ||messageSearchForm.get('MessageBoxType').value=='2')"
+                  (click)="Archive()" data-toggle="tooltip" title="آرشیو"
+                  class="opreation-icon"><i class="fa fa-archive archive"></i></span>
+            <span *ngIf="isSelected"
+                  (click)="Delete()" data-toggle="tooltip" title="حذف"
+                  class="opreation-icon"><i class="fa fa-trash-o delete"></i></span>
+            <span *ngIf="isSelected && messageSearchForm.get('MessageBoxType').value=='1'"
+                  (click)="UnRead()" data-toggle="tooltip" title="خوانده نشده"
+                  class="opreation-icon"><i class="fa fa-envelope unread"></i></span>
+
+          </div>
+
+
+
+          <div class="col-md-12">
+
+            <ul class="nav nav-tabs">
+
+              <li class="blog-nav-item  active " style="width:25%">
+                <a href="#indox" class="messageTabs" data-toggle="tab" aria-expanded="true" (click)="SetMessageBoxType(1)">
+                  <i class="fa fa-inbox"></i>
+                  <span>
+                    صندوق ورودی
+                  </span>
+
+                  <span class="count_unread">
+                    {{unReadMessagesCount}}خوانده نشده
+                  </span>
+                </a>
+              </li>
+              <li class="blog-nav-item" style="width:25%">
+                <a href="#outbox" data-toggle="tab" class="messageTabs" (click)="SetMessageBoxType(2)">
+                  <i class="fa fa-send"></i>
+                  <span>
+                    صندوق خروجی
+                  </span>
+                  ‌
+                </a>
+              </li>
+              <li class="blog-nav-item" style="width:25%">
+                <a href="#archive" data-toggle="tab" class="messageTabs" (click)="SetMessageBoxType(3)">
+                  <i class="fa fa-archive "></i>
+                  <span>
+                    آرشیو
+                  </span>
+
+                </a>
+              </li>
+              <li class="blog-nav-item" style="width:25%">
+                <a href="#system" data-toggle="tab" class="messageTabs" (click)="SetMessageBoxType(4)">
+                  <i class="fa fa-archive "></i>
+                  <span>
+                   پیام های سیستمی
+                  </span>
+
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-12 col-md-12  col-xs-12" style="margin-top:5px">
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+              <div class="tab-pane active" id="indox" *ngIf="messageSearchForm.get('MessageBoxType').value=='1'">
+                <table class="table table-responsive">
+                  <tbody>
+
+
+                    <tr class="{{message.unRead==true? 'clickable unread-message' : 'clickable read-message'}}"
+                        *ngFor="let message of messages?.results"
+                        style="border-bottom: 1px solid #BDBDBD;">
+                      <td style="width: 3%;">
+
+                        <label class="checkboxgreen ">
+                          <input type="checkbox" [(ngModel)]="message.select" (change)="IsShowOptions()">
+                          <span class="checkmarkgreen"></span>
+                        </label>
+                      </td>
+                      <td class="a-right a-right " style="width: 15%; " routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(1)">
+
+                        {{message.sender.name}}
+                      </td>
+                      <td class="a-right a-right" style="width: 15%;" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(1)">{{message.subjectName}}</td>
+                      <td class="a-right a-right   " routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(1)" style="opacity:0.8;width: 20%;">
+                        <span style="line-height:17px;margin: 24px 0 10px;" [innerHtml]="message.body"></span>
+
+                      </td>
+                      <td routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(1)" style="width: 17%;">
+
+                        <span class="pull-left">
+                          <i *ngIf="message.hasAttachment" class="fa fa-paperclip ml-3"></i>
+                          <span>  {{message.sendDateTime}}</span>
+
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="outbox">
+
+                ‌ <table class="table table-responsive" *ngIf="messageSearchForm.get('MessageBoxType').value=='2'">
+
+                  <tbody>
+
+                    <tr class="{{message.unRead==true? 'clickable unread-message' : 'clickable read-message'}}"
+                        *ngFor="let message of messages?.results" style="border-bottom: 1px solid #BDBDBD;">
+                      <td class="a-right a-right " style="width: 3%;">
+                        <label class="checkboxgreen ">
+                          <input type="checkbox" [(ngModel)]="message.select" (change)="IsShowOptions()">
+                          <span class="checkmarkgreen"></span>
+                        </label>
+                      </td>
+                      <td class="a-right a-right " style="width: 15%;" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(2)">
+                        به:<span class="bold">     {{message.recipients[0].name}}</span>
+
+                      </td>
+                      <td class="a-right a-right   " style="width: 15%;" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(2)">{{message.subjectName}}</td>
+                      <td class="a-right a-right   " routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(2)" style="opacity:0.8;width: 20%;">
+
+                        <span style="line-height:17px;margin: 24px 0 10px;" [innerHtml]="message.body"></span>
+
+                      </td>
+
+                      <td routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(2)" style="width: 17%;">
+
+                        <span class="pull-left">
+                          <i *ngIf="message.hasAttachment" class="fa fa-paperclip ml-3"></i>
+                          <span>  {{message.sendDateTime}}</span>
+
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="archive" *ngIf="messageSearchForm.get('MessageBoxType').value=='3'">
+
+                <table class="table table-responsive">
+
+                  <tbody>
+
+                    <tr class="{{message.unRead==true? 'clickable unread-message' : 'clickable read-message'}}"
+                        *ngFor="let message of messages.results" style="border-bottom: 1px solid #BDBDBD;   ">
+                      <td class="a-right a-right " style="width: 3%;">
+                        <label class="checkboxgreen ">
+                          <input type="checkbox" [(ngModel)]="message.select" (change)="IsShowOptions()">
+                          <span class="checkmarkgreen"></span>
+                        </label>
+                      </td>
+                      <td class="a-right a-right " style="width: 15%;" *ngIf="message.fromMe==true" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(3)">
+                        <span class="bold">من</span>
+                        <small>   به {{message?.recipients[0]?.name}}</small>
+
+                      </td>
+                      <td class="a-right a-right " style="width: 15%;" *ngIf="message.fromMe==false" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(3)">
+                        <span class="bold">{{message.sender.name}}</span>
+                        <small>    به من </small>
+
+                      </td>
+                      <td class="a-right a-right   " style="width: 15%;" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(3)">{{message.subjectName}}</td>
+                      <td class="a-right a-right" routerLink="/messaging/{{message.id}}" (click)="SetMessageBoxName(3)" style="opacity:0.8;width: 20%;">
+                        <span style="line-height:17px;margin: 24px 0 10px;" [innerHtml]="message.body"></span>
+                      </td>
+                      <td routerLink="/messaging/{{message.id}}" style="width: 17%;">
+
+                        <span class="pull-left">
+                          <i *ngIf="message.hasAttachment" class="fa fa-paperclip ml-3"></i>
+                          <span>  {{message.sendDateTime}}</span>
+
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="system" *ngIf="messageSearchForm.get('MessageBoxType').value=='4'">
+
+                <table class="table table-responsive">
+                  <tbody>
+                    <tr *ngFor="let systemMessage of systemicMessages?.results">
+                      <td>
+                        <a  routerLink="/messaging/{{systemMessage.id}}/systemMessage">{{systemMessage.body}}</a>
+                      </td>
+                      <td>
+                        {{systemMessage.sendDate}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-12 col-sm-12" *ngIf="messages?.totalNumberOfRecords>0">
+                <div class="col-md-6 col-sm-12">
+                  <div class="dataTables_info"
+                       id="datatable-checkbox_info"
+                       role="status"
+                       aria-live="polite">
+                    نمایش
+                    <b>
+                      {{pageCount*(messages.pageNumber-1)+1}}
+                    </b>
+                    تا
+                    <b>
+                      {{pageCount*messages.pageNumber>=messages.totalNumberOfRecords?messages.totalNumberOfRecords:pageCount*messages.pageNumber}}
+                    </b>
+                    از
+                    <b>
+                      {{messages.totalNumberOfRecords}}
+                    </b>
+                    پیام
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="GetMessages(1)">اولین</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="GetMessages(pager.currentPage - 1)">قبلی</a>
+                      </li>
+                      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="GetMessages(page)">{{page}}</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="GetMessages(pager.currentPage + 1)">بعدی</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="GetMessages(pager.totalPages)">آخرین</a>
+                      </li>
+                    </ul>
+
+                    <!--<ul class="pagination">
+    <li class="{{messages.pageNumber===1?'paginate_button previous disablepaging' : 'paginate_button previous'}}"
+        id="datatable-checkbox_previous">
+      <a (click)="GetMessages(page=messages.pageNumber - 1)"
+         aria-controls="datatable-checkbox"
+         data-dt-idx="0"
+         tabindex="0">
+        قبلی
+      </a>
+    </li>
+    <li *ngFor='let in of PagingCounter(messages.totalNumberOfPages) ;let currentPage = index'
+        class="{{currentPage+1===messages.pageNumber?'paginate_button active' : 'paginate_button'}}">
+      <a (click)="GetMessages(page=currentPage + 1)"
+         aria-controls="datatable-checkbox"
+         data-dt-idx="1"
+         tabindex="0">
+        {{currentPage+1}}
+      </a>
+    </li>
+    <li class="paginate_button next" id="datatable-checkbox_next">
+    <li class="{{messages.pageNumber<messages.totalNumberOfPages ?'paginate_button next' : 'paginate_button next disablepaging'}}" id="datatable-checkbox_next">
+      <a (click)="GetMessages(page=messages.pageNumber + 1)"
+         aria-controls="datatable-checkbox" data-dt-idx="0" tabindex="0">
+        بعدی
+
+      </a>
+    </li>
+  </ul>-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12" *ngIf="systemicMessages?.totalNumberOfRecords>0">
+                <div class="col-md-6 col-sm-12">
+                  <div class="dataTables_info"
+                       id="datatable-checkbox_info"
+                       role="status"
+                       aria-live="polite">
+                    نمایش
+                    <b>
+                      {{pageCount*(systemicMessages.pageNumber-1)+1}}
+                    </b>
+                    تا
+                    <b>
+                      {{pageCount*systemicMessages.pageNumber>=systemicMessages.totalNumberOfRecords?systemicMessages.totalNumberOfRecords:pageCount*systemicMessages.pageNumber}}
+                    </b>
+                    از
+                    <b>
+                      {{systemicMessages.totalNumberOfRecords}}
+                    </b>
+                    پیام
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="GetMessages(1)">اولین</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="GetMessages(pager.currentPage - 1)">قبلی</a>
+                      </li>
+                      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="GetMessages(page)">{{page}}</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="GetMessages(pager.currentPage + 1)">بعدی</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="GetMessages(pager.totalPages)">آخرین</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

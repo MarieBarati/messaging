@@ -1,0 +1,207 @@
+.composebox {
+  width: 75%;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding-right: 6px;
+}
+
+.composebody {
+  width: 75%;
+  min-height: 300px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding-right: 6px;
+}
+
+.opreation-icon {
+  padding: 4px;
+  font-size: 18px;
+}
+
+.displaynone {
+  display: none;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+.pdf {
+  background-color: transparent;
+  color: red;
+  font-size: 23px
+}
+
+.txt {
+  background-color: transparent;
+  color: black;
+  font-size: 23px
+}
+
+.default {
+  background-color: transparent;
+  color: black;
+  font-size: 23px
+}
+
+.doc {
+  background-color: transparent;
+  color: blue;
+  font-size: 23px
+}
+
+.jpg {
+  background-color: transparent;
+  color: orange;
+  font-size: 23px
+}
+
+.png {
+  background-color: transparent;
+  color: orange;
+  font-size: 23px
+}
+
+.xls {
+  background-color: transparent;
+  color: green;
+  font-size: 23px
+}
+
+.vertical-sub {
+  vertical-align: sub;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.vertical-super {
+  vertical-align: super;
+}
+
+.left-initial {
+  left: initial !important;
+}
+
+.upload {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 85px;
+}
+
+.upclass {
+  padding: 5px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+  min-height: 50px;
+  margin-bottom: 6px;
+}
+
+.uplable {
+  padding: 10px;
+  border: 1px solid #eee;
+  background-color: #ffffff;
+  margin: 3px;
+  border-radius: 55px;
+}
+
+.upclose {
+  color: #FAFAFA;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 59px;
+  padding: 1px;
+  background-color: #e02525;
+}
+
+.closeSearch {
+  padding: 6px;
+  background-color: #E0E0E0;
+  margin: 5px;
+  border-radius: 5px;
+  cursor:pointer;
+}
+.closeSearch:hover {
+color:red;
+}
+
+.user-search {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  width: 100%;
+  min-height: 400px;
+  border: 2px solid #34495e;
+  background-color: #ffffff;
+  background-color: #ffffff;
+
+}
+
+.ng-select.custom {
+  border: 0px;
+  min-height: 0px;
+  font-size:10px !important;
+  border-radius: 0;
+}
+.custom {
+  border: 0px;
+  min-height: 0px;
+  font-size: 10px !important;
+  border-radius: 0;
+}
+
+  .ng-select.custom ::ng-deep .ng-select-container {
+    border: 0px;
+    border-radius: 0;
+    nt-size: 10px !important;
+  }
+
+.user-search-combo {
+  width: 100%;
+  border: 1px solid #eee;
+  height: 32px;
+  border-radius: 4px;
+}
+
+.my-lable {
+  font-size: 11px;
+}
+* {
+  color: #34495e;
+  font-weight:400;
+}
+.table > tbody > tr > td, .table > tbody > tr > th,
+.table > tfoot > tr > td, .table > tfoot > tr > th,
+.table > thead > tr > td, .table > thead > tr > th {
+  padding: 4px;
+}
+.table .table {
+  background-color: #f5fbffcf;
+  border-radius: 4px;
+}
+
+.checkmarkgreen {
+  position: absolute;
+  top: -11px;
+  left: 0;
+  right: 0px;
+  height: 21px;
+  width: 21px;
+  background-color: #eee;
+  border-radius: 4px;
+  border: solid 1px #ccc;
+}
+.ng-select.custom {
+  border: 20px;
+  min-height: 0px;
+  border-radius: 0;
+}
+
+  .ng-select.custom .ng-control {
+    min-height:20px;
+    border-radius: 0;
+  }

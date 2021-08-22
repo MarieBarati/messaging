@@ -1,0 +1,148 @@
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 list">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>
+            <span class="titl-page">
+              <i class="fa fa-envelope-o"></i>
+              پیام های {{messageBoxName}}
+            </span>
+          </h2>
+          <span class="opreation-icon pull-left" data-toggle="tooltip" title="رفتن به پیام ها">
+            <a class="btn btn-default" routerLink="/messaging">
+              <i class="fa  fa-arrow-right"></i>
+            </a>
+          </span>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <div class="col-md-12 messagesubject">
+            <span>{{messageDetails[0]?.subjectName}}</span>
+            <div class="col-md-6 pull-left">
+              <span data-toggle="tooltip" title="باز ارسال" class=" pull-left" (click)="Action(2)">  <i class="fa fa-mail-forward action"> </i></span>
+              <span data-toggle="tooltip" title="پاسخ" class="pull-left" (click)="Action(1)">  <i class="fa fa-mail-reply action"> </i></span>
+              <span data-toggle="tooltip" title="حذف" class="pull-left" (click)="Delete(messageDetails[0].id)">  <i class="fa fa-trash-o delete"> </i></span>
+              <span data-toggle="tooltip" *ngIf="messageDetails[0]?.isArchived==false" (click)="Archive(messageDetails[0].id)" title="آرشیو" class="pull-left">  <i class="fa fa-archive archive"> </i></span>
+              <span data-toggle="tooltip" *ngIf="messageDetails[0]?.isArchived==true" (click)="UnArchive(messageDetails[0].id)" title="فعال کردن" class="pull-left"> <i class="fa fa-envelope-open read"></i></span>
+              <span data-toggle="tooltip" title="خوانده نشده" class="pull-left" (click)="UnRead(messageDetails[0].id)"> <i class="fa fa-envelope action"></i></span>
+            </div>
+          </div>
+          <div class="col-md-12 newmessage" *ngIf="forward==true  || reply==true">
+            <app-forward [messageBody]="messageDetails[0].body"
+                         [subjectId]="messageDetails[0].subjectId"
+                         [conversationId]="messageDetails[0].id"
+                         [messageAttachment]="messageDetails[0].attachementFiles"
+                         (forwarded)="Forwarded($event)"
+                         *ngIf="forward==true"></app-forward>
+            <app-reply [subjectId]="messageDetails[0].subjectId"
+                       [sender]="messageDetails[0].sender"
+                       [conversationId]="messageDetails[0].id"
+                       (replied)="Replied($event)"
+                       *ngIf="reply==true"></app-reply>
+          </div>
+
+          <div class="row item" *ngFor="let message of messageDetails; let i = index">
+            <a>  
+              <div class="col-md-9">
+
+                <span>
+                  <i class="fa fa-user user-icon"> </i>
+                </span>
+                <span class="sender">
+                  {{message.sender.name}}
+                </span>
+                <span>
+                  {{message.sender.departmentAndPostName}}
+                </span>
+                <div class="reciver">
+                  به
+                  <span *ngIf="!openRecipientList[i]">
+                    {{message.recipients[0].name}}
+                  </span>
+                  <span *ngIf="message.recipients.length>1 && !openRecipientList[i]">
+                    و....
+                  </span>
+                  <i class="fa  fa-chevron-circle-left green openlist" *ngIf="message.recipients.length>1  && !openRecipientList[i]" (click)="openRecipientList[i]=!openRecipientList[i]"></i>
+                  <span *ngIf="openRecipientList[i]">
+                    <span *ngFor="let r of message.recipients">
+                      {{r.name}},
+
+                    </span>
+                    <i class="fa  fa-chevron-circle-right red openlist" *ngIf="message.recipients.length>1" (click)="openRecipientList[i]=!openRecipientList[i]"></i>
+
+                  </span>
+                </div>
+              </div>
+                  <div class="col-md-3 ">
+                    <span class="pull-left">
+                      {{message.sendDateTime}}
+                    </span>
+                  </div>
+
+            </a>
+
+            <div>
+
+
+              <div class="col-md-12 messagebody">
+
+                <div class="col-md-12">
+                  <p [innerHtml]="message.body">
+                  
+                  </p>
+                  <hr *ngIf=" message.attachementFiles.length>0" style="z-index:0" />
+                  <div class="col-md-12">
+
+                    <div class="col-md-2" *ngFor="let file of message.attachementFiles">
+                      <div class="message-attachment">
+                        <div class="fileimage">
+                          <img src="{{file.src}}" />
+
+                        </div>
+
+                        <div class="filename">
+                          <i class="fa fa-file-pdf-o"></i>
+                          {{file.name}}
+                        </div>
+                        <div class="middle">
+                          <div class="text">
+                            <i (click)="Download(file)" class="fa fa-download icon-attachment"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div class="col-md-12 messagebody" *ngIf="i==0">
+                
+                <button class="btn btn-default" (click)="Action(1)" *ngIf="((forward == false && reply == false) || (forward == false && reply == true)) && replyBtn">
+                  <i class="fa fa-mail-reply"> </i>
+                  پاسخ
+                  
+                </button>
+                <button class="btn btn-default" (click)="Action(2)" *ngIf="((forward == false && reply == false) || (forward == true && reply == false)) && forwardBtn" >
+                  <i class="fa fa-mail-forward"> </i>
+                  باز ارسال
+
+                </button>
+
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

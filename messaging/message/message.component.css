@@ -1,0 +1,211 @@
+
+.opreation-icon {
+  padding: 4px;
+  font-size: 18px;
+  cursor:pointer;
+}
+
+
+.newmessage {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+  .newmessage:hover {
+    box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.38);
+  }
+  .newmessage:current {
+    box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.38);
+  }
+.user-icon {
+  width: 35px;
+  height: 35px;
+  background-color: #FAFAFA;
+  padding: 10px;
+  padding-right: 13px;
+  border-radius: 30px;
+}
+.item {
+  margin-bottom: 15px;
+  padding: 10px;
+  box-shadow: -1px -1px 2px 1px #f5dcdc4a;
+  border-radius: 4px;
+}
+
+.sender {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.reciver {
+  opacity: 0.9;
+  margin-right: 37px;
+}
+.reciverlist {
+  position: absolute;
+  box-shadow: 1px 1px 2px 1px #eee;
+  padding: 5px;
+  margin-top: 2%;
+  z-index: 999;
+  border-radius: 4px;
+}
+.messagebody {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  background-color: #f4fcff;
+  width: 85%;
+  margin-right: 9%;
+}
+.item:hover {
+  box-shadow: 2px 1px 2px 1px #0000004a;
+}
+.item:current {
+  box-shadow: 2px 1px 2px 1px #0000004a;
+}
+  .messagesubject {
+  color: #01579B;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fbfbfb;
+  border-right: 5px solid #03A9F4;
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+.message-attachment {
+  border: 1px solid #dcdcdc;
+}
+.filename {
+  background-color: #34495e;
+  padding: 4px;
+  color: #f4fcff;
+  font-size: 11px;
+}
+
+.fileimage {
+  height:80px;
+}
+img {
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  height: 99%;
+  width: 92%;
+}
+
+.message-attachment:hover .img {
+  opacity: 0.3;
+}
+
+.message-attachment:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #ffffff;
+  color: #34495e;
+  font-size: 16px;
+  padding: 22px 0px 0px 0px;
+  height: 77%;
+  width: 90%;
+
+}
+
+.icon-attachment {
+  cursor:pointer;
+  margin: 5px;
+  border: 1px solid;
+  padding: 5px;
+}
+
+.archive {
+  background-color: #E1F5FE;
+  color: #0288D1;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow: -1px 1px 2px 1px #9E9E9E;
+  margin-left: 6px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+}
+
+.delete {
+  color: #E53935;
+  padding: 5px;
+  font-size: 18px;
+  background-color: #FFCDD2;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: -1px 1px 2px 1px #9E9E9E;
+  margin-left: 6px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+}
+.read {
+  color: #FF9800;
+  padding: 5px;
+  font-size: 18px;
+  background-color: #FFE0B2;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: -1px 1px 2px 1px #9E9E9E;
+  margin-left: 6px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+}
+  .read:hover {
+    box-shadow: inset 1px 0px 0px 1px #9e9e9e80;
+  }
+
+  .delete:hover {
+    box-shadow: inset 1px 0px 0px 1px #9e9e9e80;
+  }
+
+.archive:hover {
+  box-shadow: inset 1px 0px 0px 1px #9e9e9e80;
+}
+.action:hover {
+  box-shadow: inset 1px 0px 0px 1px #9e9e9e80;
+  color:#2dd186;
+}
+.action {color: #757575;
+padding: 5px;
+font-size: 18px;
+background-color: #EEEEEE;
+border-radius: 4px;
+cursor: pointer;
+box-shadow: -1px 1px 2px 1px #9E9E9E;
+margin-left: 6px;
+height: 28px;
+width: 28px;
+text-align: center;
+}
+.openlist {
+  padding:8px;
+}
+  .openlist:hover {
+    background-color: #EEEEEE;
+    border-radius: 99px;
+    cursor: pointer;
+  }

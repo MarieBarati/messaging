@@ -1,0 +1,122 @@
+.composebox {
+  width: 75%;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding-right: 6px;
+}
+
+.composebody {
+  width: 75%;
+  min-height: 300px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding-right: 6px;
+}
+
+.opreation-icon {
+  padding: 4px;
+  font-size: 18px;
+}
+
+.displaynone {
+  display: none;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+.pdf {
+  background-color: transparent;
+  color: red;
+  font-size: 23px
+}
+
+.txt {
+  background-color: transparent;
+  color: black;
+  font-size: 23px
+}
+
+.default {
+  background-color: transparent;
+  color: black;
+  font-size: 23px
+}
+
+.doc {
+  background-color: transparent;
+  color: blue;
+  font-size: 23px
+}
+
+.jpg {
+  background-color: transparent;
+  color: orange;
+  font-size: 23px
+}
+
+.png {
+  background-color: transparent;
+  color: orange;
+  font-size: 23px
+}
+
+.xls {
+  background-color: transparent;
+  color: green;
+  font-size: 23px
+}
+
+.vertical-sub {
+  vertical-align: sub;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.vertical-super {
+  vertical-align: super;
+}
+
+.left-initial {
+  left: initial !important;
+}
+
+.upload {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 85px;
+}
+
+.upclass {
+  padding: 5px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+  min-height: 50px;
+  margin-bottom: 6px;
+  overflow-x: auto;
+}
+
+.uplable {
+  padding: 6px;
+  background-color: #ffffff;
+  margin: 3px;
+  border-radius: 55px;
+}
+
+.upclose {
+  color: #FAFAFA;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 59px;
+  padding: 1px;
+  background-color: #e02525;
+}
+
+.upicon {
+}

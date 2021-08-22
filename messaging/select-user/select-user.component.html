@@ -1,0 +1,175 @@
+<div class="user-search">
+
+  <i class="fa fa-close closeSearch pull-right" (click)="Close()"></i>
+  <div class="table table-responsive">
+
+    <table class="table table-striped">
+
+      <thead>
+
+        <tr>
+
+          <td style="width:1px">
+          </td>
+          <td style="width:12%">
+            <span class="my-lable">
+              نام
+            </span>
+          </td>
+          <td style="width:12%">
+            <span class="my-lable">
+              نام خانوادگی
+            </span>
+
+
+          </td>
+          <td style="width:35%">
+            <span class="my-lable">
+              واحدتابعه
+            </span>
+
+          </td>
+          <td style="width:35%">
+            <span class="my-lable">
+              نوع پست
+            </span>
+          </td>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <td>
+            <label class="checkboxgreen">
+              <input type="checkbox" (change)="SelectAll(selectedAllUser)" [(ngModel)]="selectedAllUser">
+              <span class="checkmarkgreen"></span>
+            </label>
+          </td>
+          <td style="width:12%">
+
+            <input type="text"
+                   #name
+                   (input)="searchBtnDisable=false"
+                   class="user-search-combo">
+          </td>
+          <td style="width:12%">
+
+            <input type="text"
+                   #lastName
+                   (input)="searchBtnDisable=false"
+                   class="user-search-combo">
+
+          </td>
+          <td style="width:35%">
+
+            <ng-select class="custom"
+                       [items]="organizationCharts"
+                       bindLabel="name"
+                       appendTo="body"
+                       (search)="SearcheDepartmentName($event.term)"
+                       bindValue="organizationChartId"
+                       placeholder="یک مورد را انتخاب کنید."
+                       (change)="IsSearchBtnDisable('organizationChart')"
+                       [(ngModel)]="selectedorganizationChartId">
+            </ng-select>
+          </td>
+          <td style="width:35%">
+
+            <ng-select class="custom"
+                       [items]="posts"
+                       bindLabel="name"
+                       bindValue="id"
+                       appendTo="body"
+                       placeholder="یک مورد را انتخاب کنید."
+                       (change)="IsSearchBtnDisable('post')"
+                       [(ngModel)]="selectedPostId">
+            </ng-select>
+          </td>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of user.results" class="even pointer">
+          <td>
+            <label class="checkboxgreen">
+              <input type="checkbox"
+                     id="{{user.userId}}"
+                     (change)="SelectUser(user.userId,user.selected)"
+                     [(ngModel)]="user.selected">
+              <span class="checkmarkgreen"></span>
+            </label>
+          </td>
+          <td class="a-right a-right" colspan="2">
+            {{ user.personName}}
+          </td>
+          <td class="a-right a-right">
+            <span class="help">
+              {{ user.departmentName| trunc : limit}}
+            </span>
+
+            <div class='help-details'>
+              <i class="fa fa-caret-up tooltip-icon"></i>
+              {{user.departmentName }}
+            </div>
+          </td>
+          <td class="a-right a-right">
+            <span class="help">
+              {{user?.postName| trunc : limit}}
+            </span>
+
+            <div class='help-details'>
+              <i class="fa fa-caret-up tooltip-icon"></i>
+              {{ user.postName }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  <div class="col-md-12">
+    <button class="btn btn-sm btn-default" [disabled]="searchBtnDisable" (click)="GetUsers()">
+      <span *ngIf="searching==false">
+        <i class="fa fa-search"></i>
+        جستجو
+      </span>
+      <span *ngIf="searching==true">
+        <i class="fa fa-spinner fa-spin"></i>
+        در حال جستجو
+      </span>
+    </button>
+    <button class="btn btn-sm btn-success" (click)="Select()" *ngIf="showBtn==true">انتخاب</button>
+  </div>
+  <div class="row" *ngIf="user.totalNumberOfRecords>0">
+    <div class="col-sm-5">
+      <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+        نمایش
+        <b>{{user.pageSize*(user.pageNumber-1)+1}}</b>
+        تا
+        <b>{{user.pageSize*user.pageNumber>=user.totalNumberOfRecords?user.totalNumberOfRecords:user.pageSize*user.pageNumber}}</b>
+        از
+        <b> {{user.totalNumberOfRecords}}</b> کاربر
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+        <ul class="pagination">
+          <li class="{{user.pageNumber===1?'paginate_button previous disablepaging' : 'paginate_button previous'}}" id="datatable-checkbox_previous">
+            <a (click)="Paging(page=user.pageNumber - 1)" aria-controls="datatable-checkbox" data-dt-idx="0" tabindex="0">قبلی</a>
+          </li>
+          <li *ngFor='let in of PagingCounter(user.totalNumberOfPages) ;let currentPage = index' class="{{currentPage+1===user.pageNumber?'paginate_button active' : 'paginate_button'}}">
+            <a (click)="Paging(page=currentPage + 1)" aria-controls="datatable-checkbox" data-dt-idx="1" tabindex="0">
+              {{currentPage+1}}
+            </a>
+          </li>
+          <li class="paginate_button next" id="datatable-checkbox_next">
+          <li class="{{user.pageNumber<user.totalNumberOfPages ?'paginate_button next' : 'paginate_button next disablepaging'}}" id="datatable-checkbox_next">
+            <a (click)="Paging(page=user.pageNumber + 1)" aria-controls="datatable-checkbox" data-dt-idx="0" tabindex="0">بعدی</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
