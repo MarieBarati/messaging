@@ -16,6 +16,7 @@ In this application, users can compose a new message and send it to other users 
 ![inbox](component-Images/Compose.jpeg)
 
 ## Read Messages
-In this project, users are able to read their messages. Users can reply to each message or forward it to other users defined in the system. 
+In this project, users are able to read their messages. Users can reply to each message or forward it to other users defined in the system.
+
 ![inbox](component-Images/ReadMessage.jpeg)
 
